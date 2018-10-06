@@ -1,22 +1,33 @@
 {
-  "name": "goodcontract",
-  "version": "0.1.0",
-  "description": "hlag2018",
-  "main": "index.js",
+  "name": "GoodContract",
+  "version": "1.0.0",
+  "main": "server/server.js",
+  "engines": {
+    "node": ">=4"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "start": "node .",
+    "posttest": "npm run lint"
+  },
+  "dependencies": {
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
+    "helmet": "^3.10.0",
+    "loopback-boot": "^2.6.5",
+    "serve-favicon": "^2.0.1",
+    "strong-error-handler": "^3.0.0",
+    "loopback-component-explorer": "^6.0.0",
+    "loopback": "^3.19.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.17.1",
+    "eslint-config-loopback": "^8.0.0"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/teamgoodquestionhlag2018/GoodContract.git"
+    "type": "",
+    "url": ""
   },
-  "keywords": [
-    "hlag2018"
-  ],
-  "author": "npm-install <noreply@marketlogicsoftware.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/teamgoodquestionhlag2018/GoodContract/issues"
-  },
-  "homepage": "https://github.com/teamgoodquestionhlag2018/GoodContract#readme"
+  "license": "UNLICENSED",
+  "description": "GoodContract"
 }
