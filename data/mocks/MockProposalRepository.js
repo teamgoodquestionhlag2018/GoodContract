@@ -1,32 +1,26 @@
+const uuid = require('uuid/v4')
+
 class MockProposalRepository {
     constructor() {
         this.proposals = [{
-            freelancer: '0x123',
-            client: '0x456',
+            id: uuid(),
+            freelancer: '0x426',
+            client: '0x837',
             milestones: [
             {
-                prize: 123,
-                requirements: '',
-                deadline: JSON.stringify(Date.now())
+                price: 32.6,
+                requirements: 'Sketch logos',
+                deadline: JSON.stringify(new Date(2018, 10, 10))
+            },
+            {
+                price: 39.4,
+                requirements: 'Design logos (second revision)',
+                deadline: JSON.stringify(new Date(2018, 10, 15))
             }
             ],
             creationDate: JSON.stringify(Date.now()),
             signed: false
-        },
-        {
-            freelancer: '0x123',
-            client: '0x456',
-            milestones: [
-            {
-                prize: 123,
-                requirements: '',
-                deadline: JSON.stringify(Date.now())
-            }
-            ],
-            creationDate: JSON.stringify(Date.now()),
-            signed: false
-        }
-        ];
+        }];
     }
 
     GetProposals() {
@@ -36,14 +30,24 @@ class MockProposalRepository {
      * @param {number} id
      */
     GetProposalById(id) {
-        return this.proposals[(id - 1)];
+        return GetProposalById(id, this.proposals);
     }
     AddProposal(proposal) {
+        proposal.id = uuid();
+        proposal.creationDate = JSON.stringify(Date.now()),
+        proposal.signed = false,
         this.proposals.push(proposal);
     }
     SignProposal(id) {
-        this.proposals[id].signed = true;
+        var proposal = GetProposalById(id, this.proposals);
+        proposal.signed = true;
     }
+}
+
+function GetProposalById(id, proposals) {
+    return proposals.find((element, index) => {
+        return element.id == id;
+    });
 }
 
 module.exports = MockProposalRepository;
