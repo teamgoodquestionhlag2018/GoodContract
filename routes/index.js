@@ -1,6 +1,6 @@
 var mockRepository = require("../data/mocks/MockProposalRepository");
 
-// const service = require('../service.js');
+var service = require('../service.js');
 var express = require('express');
 var router = express.Router();
 var repo = new mockRepository();
@@ -16,7 +16,7 @@ router.get('/proposals', function (req, res, next) {
 
 router.post('/proposals', function (req, res, next) {
   var proposal = req.body;
-  
+
   repo.AddProposal(proposal);
   res.send(proposal);
 });
@@ -27,11 +27,11 @@ router.get('/proposals/:id', function (req, res, next) {
 
 router.put('/proposals/:id/sign', function (req, res, next) {
   var id = req.params.id;
-  
+
   repo.SignProposal(id);
   var proposal = repo.GetProposalById(id);
 
-  res.send(proposal);
+  service(proposal, () => res.send(proposal));
 });
 
 module.exports = router;

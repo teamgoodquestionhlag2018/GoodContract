@@ -1,4 +1,4 @@
-require('dotenv');
+require('dotenv').config();
 const Web3 = require('web3');
 const Tx = require('ethereumjs-tx');
 
@@ -71,7 +71,7 @@ const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 let count;
 // get transaction count, later will used as nonce
-module.exports = (callback) => web3.eth.getTransactionCount(myAddress).then(function (v) {
+module.exports = (proposal, callback) => web3.eth.getTransactionCount(myAddress).then(function (v) {
   console.log('Count: ' + v);
   count = v;
 
@@ -81,7 +81,7 @@ module.exports = (callback) => web3.eth.getTransactionCount(myAddress).then(func
     'gasLimit': web3.utils.toHex(60000),
     'to': contractAddress,
     'value': '0x0',
-    'data': contract.methods.setMessage('Hello HLAG 2017', 'Bazooka').encodeABI(),
+    'data': contract.methods.setMessage(proposal.id, 'Bazooka').encodeABI(),
     'nonce': web3.utils.toHex(count)
   };
 
