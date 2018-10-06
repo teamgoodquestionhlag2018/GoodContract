@@ -1,0 +1,22 @@
+{
+  "name": "goodcontract",
+  "version": "0.1.0",
+  "description": "hlag2018",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teamgoodquestionhlag2018/GoodContract.git"
+  },
+  "keywords": [
+    "hlag2018"
+  ],
+  "author": "npm-install <noreply@marketlogicsoftware.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teamgoodquestionhlag2018/GoodContract/issues"
+  },
+  "homepage": "https://github.com/teamgoodquestionhlag2018/GoodContract#readme"
+}
