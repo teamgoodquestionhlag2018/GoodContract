@@ -4,15 +4,34 @@ class MockProposalRepository {
     constructor() {
         this.proposals = [{
             id: uuid(),
-            freelancer: '0x426',
-            client: '0x837',
-            milestones: 
-            {          
-                price: 32.6,
-                requirements: 'Sketch logos',
-                deadline: JSON.stringify(new Date(2018, 10, 10))
+            title: 'Logo Design Contract',
+            freelancer: {
+                id: uuid(),
+                name: 'Donald Duck',
+                wallet: '0x123',
+                street: 'Webfoot Street 1313',
+                city: 'Duckburg',
+                country: 'Disneyland'
             },
-            creationDate: JSON.stringify(Date.now()),
+            client: {
+                id: uuid(),
+                name: 'Clark Kent',
+                wallet: '0x456',
+                street: 'Clinton Street 344',
+                city: 'Metropolis',
+                country: 'United States of America'
+            },
+            milestone: 
+            {          
+                id: uuid(),
+                status: 'active',
+                price: 3277,
+                requirement: 'Sketch logos',
+                creationDate: new Date(),
+                deadline: new Date(2018, 10, 10),
+                isExtended: false,
+            },
+            creationDate: new Date(),
             signed: false
         }];
     }
@@ -28,7 +47,7 @@ class MockProposalRepository {
     }
     AddProposal(proposal) {
         proposal.id = uuid();
-        proposal.creationDate = JSON.stringify(Date.now()),
+        proposal.creationDate = new Date(),
         proposal.signed = false,
         this.proposals.push(proposal);
     }
