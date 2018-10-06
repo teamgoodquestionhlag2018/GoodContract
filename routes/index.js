@@ -1,7 +1,12 @@
+const service = require('../service.js');
 var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
+router.get('/', function (req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
 router.get('/proposals', function (req, res, next) {
   res.send([
     {
