@@ -9,9 +9,10 @@ contract HLAG2018 {
         uint timestamp;
     }
 
-    mapping(string => Milestone) milestones;
+    mapping(string => Milestone) private milestones;
 
     function createMilestone(string id, address freelancer, string description, uint timestamp) public payable {
+        assert(milestones[id].price == 0);
         milestones[id] = Milestone(
             freelancer,
             msg.sender,
@@ -21,34 +22,21 @@ contract HLAG2018 {
         );
     }
 
-    function
-}
-
-contract HLAG2017 {
-    string private message;
-    string private message2;
-    address private owner;
-    address otherContract;
-
-    modifier onlyOwner() {
-        require(msg.sender == owner);
-        _;
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
     }
 
-    constructor () public {
-        owner = msg.sender;
+    function getMilestones(string id) public view returns (address, uint, string, uint) {
+        return (milestones[id].client, milestones[id].price, milestones[id].description, milestones[id].timestamp);
     }
 
-    function getOwner() public onlyOwner view returns (address) {
-        return owner;
+    function withdrawClient(string id) public {
+        require(milestones[id].client == msg.sender);
+        address(msg.sender).transfer(milestones[id].price);
     }
 
-    function setMessage(string newMessage, string newMessage2) public payable {
-        message = newMessage;
-        message2 = newMessage2;
-    }
-
-    function getMessage() public view returns (string) {
-        return message;
+    function withdrawFreelancer(string id) public {
+        require(milestones[id].freelancer == msg.sender);
+        address(msg.sender).transfer(milestones[id].price);
     }
 }
