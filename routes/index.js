@@ -11,9 +11,11 @@ router.get('/proposals', function (req, res, next) {
         {
           prize: 123,
           requirements: '',
-          dueDate: JSON.stringify(Date.now())
+          deadline: JSON.stringify(Date.now())
         }
-      ]
+      ],
+      creationDate: JSON.stringify(Date.now()),
+      signed: false
     },
     {
       freelancer: '0x123',
@@ -22,9 +24,11 @@ router.get('/proposals', function (req, res, next) {
         {
           prize: 123,
           requirements: '',
-          dueDate: JSON.stringify(Date.now())
+          deadline: JSON.stringify(Date.now())
         }
-      ]
+      ],
+      creationDate: JSON.stringify(Date.now()),
+      signed: false
     }
   ]);
 });
@@ -37,9 +41,11 @@ router.post('/proposals', function (req, res, next) {
       {
         prize: 123,
         requirements: '',
-        dueDate: JSON.stringify(Date.now())
+        deadline: JSON.stringify(Date.now())
       }
-    ]
+    ],
+    creationDate: JSON.stringify(Date.now()),
+    signed: false
   });
 });
 
@@ -52,9 +58,11 @@ router.get('/proposals/:id', function (req, res, next) {
       {
         prize: 123,
         requirements: '',
-        dueDate: JSON.stringify(Date.now())
+        deadline: JSON.stringify(Date.now())
       }
-    ]
+    ],
+    creationDate: JSON.stringify(Date.now()),
+    signed: false
   });
 });
 
@@ -67,9 +75,11 @@ router.put('/proposals/:id/sign', function (req, res, next) {
       {
         prize: 123,
         requirements: '',
-        dueDate: JSON.stringify(Date.now())
+        deadline: JSON.stringify(Date.now())
       }
-    ]
+    ],
+    creationDate: JSON.stringify(Date.now()),
+    signed: true
   });
 });
 
