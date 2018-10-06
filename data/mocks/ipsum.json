@@ -1,0 +1,32 @@
+{   "contracts": [
+        {
+        "freelancer": "0x123",
+        "client": "0x456",
+        "milestone": [
+            {
+            "prize": 123,
+            "requirements": "Lorem Ipsum",
+            "deadline": "2019-04-23T18:25:43.511Z"
+            }
+        ],
+        "creationDate": "2018-04-23T18:25:43.511Z",
+        "signed": false,
+        "status": "active"
+        },
+
+        {
+        "freelancer": "0x789",
+        "client": "0x234",
+        "milestone": [
+            {
+            "prize": 28,
+            "requirements": "Ipsum Lorem",
+            "deadline": "2019-04-23T18:25:43.511Z"
+            }
+        ],
+        "creationDate": "2018-04-23T18:25:43.511Z",
+        "signed": false,
+        "status": "done"
+        }
+    ]
+}

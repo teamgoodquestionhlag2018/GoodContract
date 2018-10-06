@@ -6,18 +6,12 @@ class MockProposalRepository {
             id: uuid(),
             freelancer: '0x426',
             client: '0x837',
-            milestones: [
-            {
+            milestones: 
+            {          
                 price: 32.6,
                 requirements: 'Sketch logos',
                 deadline: JSON.stringify(new Date(2018, 10, 10))
             },
-            {
-                price: 39.4,
-                requirements: 'Design logos (second revision)',
-                deadline: JSON.stringify(new Date(2018, 10, 15))
-            }
-            ],
             creationDate: JSON.stringify(Date.now()),
             signed: false
         }];
