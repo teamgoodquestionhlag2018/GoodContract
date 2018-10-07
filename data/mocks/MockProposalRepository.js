@@ -23,8 +23,7 @@ class MockProposalRepository {
                     signed: false,
                 }
             }],
-            creationDate: new Date(),
-            signed: false
+            creationDate: new Date()
         }];
     }
 
@@ -40,7 +39,22 @@ class MockProposalRepository {
     AddProposal(proposal) {
         proposal.id = uuid();
         proposal.creationDate = new Date(),
-        proposal.signed = false,
+
+        proposal.milestones = proposal.milestones.map((element, index, value) => {
+            element.id = uuid();
+            element.status = "active";
+            element.creationDate = new Date();
+            element.isExtended = false;
+            element.freelancer = {
+                signed: false,
+            };
+            element.client = {
+                signed: false,
+            };
+
+            return element;
+        });
+        
         this.proposals.push(proposal);
     }
     UpdateProposal(proposal) {

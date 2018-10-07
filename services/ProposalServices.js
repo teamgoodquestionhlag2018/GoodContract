@@ -16,6 +16,13 @@ class ProposalService {
     GetProposalById(id) {
         var proposalData = proposalRepository.GetProposalById(id);
 
+        if (proposalData == undefined) {
+            throw {
+                code: 404,
+                message: "Proposal was not found"
+            }
+        }
+
         var proposal = GetProposalUsers(proposalData);
         
         return proposal;
