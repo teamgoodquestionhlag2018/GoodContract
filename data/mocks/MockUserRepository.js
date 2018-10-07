@@ -6,7 +6,7 @@ class MockUserRepository {
 
         this.users.push({
             id: 'bf6bd829-2dff-44c9-802d-80b85dabc0c1',
-            token: uuid(),
+            token: '4cfe8299-ccdb-4483-9ec1-0f4ddcb08743',
             name: 'Donald Duck',
             wallet: '0x123',
             street: 'Webfoot Street 1313',
