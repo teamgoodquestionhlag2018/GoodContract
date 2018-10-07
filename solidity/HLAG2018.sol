@@ -7,36 +7,78 @@ contract HLAG2018 {
         uint price;
         string description;
         uint timestamp;
+        bool isDone;
     }
 
     mapping(string => Milestone) private milestones;
 
-    function createMilestone(string id, address freelancer, string description, uint timestamp) public payable {
-        assert(milestones[id].price == 0);
-        milestones[id] = Milestone(
-            freelancer,
-            msg.sender,
-            msg.value,
-            description,
-            timestamp
-        );
+    modifier onlyFreelancer(string id) {
+        require(milestones[id].freelancer == msg.sender);
+        _;
+    }
+
+    modifier onlyClient(string id) {
+        require(milestones[id].client == msg.sender);
+        _;
+    }
+
+    modifier onlyClientOrFreelancer(string id) {
+        require(milestones[id].client == msg.sender || milestones[id].freelancer == msg.sender);
+        _;
+    }
+
+    function isDone(string id) private view returns (bool) {
+        return milestones[id].isDone == true;
+    }
+
+    function isPastDeadline(string id) private view returns (bool) {
+        return milestones[id].timestamp <= block.timestamp;
     }
 
     function getBalance() public view returns (uint) {
         return address(this).balance;
     }
 
-    function getMilestones(string id) public view returns (address, uint, string, uint) {
+    function getMilestone(string id) public view returns (address, uint, string, uint) {
         return (milestones[id].client, milestones[id].price, milestones[id].description, milestones[id].timestamp);
     }
 
-    function withdrawClient(string id) public {
-        require(milestones[id].client == msg.sender);
-        address(msg.sender).transfer(milestones[id].price);
+    function createMilestone(string id, string description, uint timestamp, bool isClient) public payable {
+        require(isDone(id) == false);
+        if (isClient) {
+            require(milestones[id].client == address(0));
+            if (milestones[id].freelancer == address(0)) {
+                milestones[id] = Milestone(address(0), msg.sender, msg.value, description, timestamp, false);
+            } else {
+                milestones[id].client = msg.sender;
+                milestones[id].price = msg.value;
+            }
+        } else {
+            require(msg.value == 0);
+            require(milestones[id].freelancer == address(0));
+            if (milestones[id].client == address(0)) {
+                milestones[id] = Milestone(msg.sender, address(0), 0, description, timestamp, false);
+            } else {
+                milestones[id].freelancer = msg.sender;
+            }
+
+        }
     }
 
-    function withdrawFreelancer(string id) public {
-        require(milestones[id].freelancer == msg.sender);
+    function setDone(string id) onlyClientOrFreelancer(id) public {
+        milestones[id].isDone = true;
+        milestones[id].freelancer.transfer(milestones[id].price);
+    }
+
+    function withdrawClient(string id) onlyClient(id) public {
+        require(isPastDeadline(id) || isDone(id));
         address(msg.sender).transfer(milestones[id].price);
+        milestones[id].price = 0;
+    }
+
+    function withdrawFreelancer(string id) onlyFreelancer(id) public {
+        require(isDone(id));
+        address(msg.sender).transfer(milestones[id].price);
+        milestones[id].price = 0;
     }
 }
