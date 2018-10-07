@@ -15,6 +15,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var proposalsRoutes = require('./routes/ProposalsController');
+var userRoutes = require('./routes/UsersController');
+
 app.use('/', indexRouter);
+app.use('/proposals', proposalsRoutes);
+app.use('/users', userRoutes);
 
 module.exports = app;
