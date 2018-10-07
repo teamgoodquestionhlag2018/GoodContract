@@ -6,15 +6,30 @@ class ProposalService {
 
     }
 
+    GetUserById(id) {
+        var data = userRepository.GetUserById(id);
+
+        console.log(data);
+
+        return GetUserView(data);
+    }
     Register(user) {
         userRepository.AddUser(user);
     }
     Login(id) {
+        if (id == null) {
+            throw {
+                code: 401,
+                message: "Invalid id"
+            };
+        }
+
         var data = userRepository.GetUserById(id);
 
-        if (data == null) {
+        if (data === undefined) {
             throw {
-
+                code: 401,
+                message: "Invalid id"
             };
         }
 

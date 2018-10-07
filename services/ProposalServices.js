@@ -1,5 +1,5 @@
 var proposalRepository = require('../data/mocks/MockProposalRepository');
-var userRepository = require('../data/mocks/MockUserRepository');
+var userService = require('./UserServices');
 
 class ProposalService {
     constructor() {
@@ -16,9 +16,7 @@ class ProposalService {
     GetProposalById(id) {
         var proposalData = proposalRepository.GetProposalById(id);
 
-        let proposal = JSON.parse(JSON.stringify(proposalData));
-
-        GetProposalUsers(proposal);
+        var proposal = GetProposalUsers(proposalData);
         
         return proposal;
     }
@@ -32,10 +30,12 @@ class ProposalService {
 }
 
 function GetProposalUsers(proposal) {
-    proposal.freelancer = userRepository.GetUserById(proposal.freelancer);
-    proposal.client = userRepository.GetUserById(proposal.client);
+    let view = JSON.parse(JSON.stringify(proposal));
 
-    return proposal;
+    view.freelancer = userService.GetUserById(view.freelancer);
+    view.client = userService.GetUserById(view.client);
+
+    return view;
 }
 
 module.exports = new ProposalService();
