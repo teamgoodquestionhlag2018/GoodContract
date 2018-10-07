@@ -39,25 +39,24 @@ contract HLAG2018 {
         return address(this).balance;
     }
 
-    function getMilestone(string id) public view returns (address, uint, string, uint) {
-        return (milestones[id].client, milestones[id].price, milestones[id].description, milestones[id].timestamp);
+    function getMilestone(string id) public view returns (address, address, uint, string, uint, bool) {
+        return (milestones[id].freelancer, milestones[id].client, milestones[id].price, milestones[id].description, milestones[id].timestamp, milestones[id].isDone);
     }
 
     function createMilestone(string id, string description, uint timestamp, bool isClient) public payable {
-        require(isDone(id) == false);
         if (isClient) {
-            require(milestones[id].client == address(0));
-            if (milestones[id].freelancer == address(0)) {
-                milestones[id] = Milestone(address(0), msg.sender, msg.value, description, timestamp, false);
+            require(milestones[id].client == 0);
+            if (milestones[id].freelancer == 0) {
+                milestones[id] = Milestone(0, msg.sender, msg.value, description, timestamp, false);
             } else {
                 milestones[id].client = msg.sender;
                 milestones[id].price = msg.value;
             }
         } else {
             require(msg.value == 0);
-            require(milestones[id].freelancer == address(0));
-            if (milestones[id].client == address(0)) {
-                milestones[id] = Milestone(msg.sender, address(0), 0, description, timestamp, false);
+            require(milestones[id].freelancer == 0);
+            if (milestones[id].client == 0) {
+                milestones[id] = Milestone(msg.sender, 0, 0, description, timestamp, false);
             } else {
                 milestones[id].freelancer = msg.sender;
             }
