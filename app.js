@@ -17,11 +17,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var proposalsRoutes = require('./routes/ProposalsController');
 var authenticationRoutes = require('./routes/AuthenticationController');
+var milestoneRoutes = require('./routes/MilestonesController');
 
 var validationMiddleware = require('./middleware/ValidationMiddleware');
 
 app.use('/', indexRouter);
 app.use('/proposals', validationMiddleware, proposalsRoutes);
 app.use('/authentication', authenticationRoutes);
+app.use('/milestones', validationMiddleware, milestoneRoutes);
 
 module.exports = app;

@@ -54,12 +54,25 @@ class MockProposalRepository {
 
             return element;
         });
-        
+
         this.proposals.push(proposal);
+    }
+    GetProposalByMilestoneId(milestoneId) {
+        return this.proposals.find((element, index, array) => {
+            var milestone = element.milestones.find((milestone, index, array) => {
+                console.log(milestone.id);
+                console.log(milestoneId);
+                
+                return milestone.id == milestoneId;
+            });
+
+            console.log(milestone);
+
+            return milestone != undefined;
+        });
     }
     UpdateProposal(proposal) {
         var data = GetProposalById(proposal.id, this.proposals);
-        data = proposal;
     }
 }
 
