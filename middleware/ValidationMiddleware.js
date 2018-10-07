@@ -12,14 +12,17 @@ var validationMiddleware = function(req, res, next) {
         res.status(error.code).send(error);
     }
 
+    var user;
+
     try {
-        var user = userService.ValidateUser(token);
-        req.user = user;
-        next();
+        user = userService.ValidateUser(token);
     }
     catch (error) {
         res.status(error.code).send(error);
     }
+
+    req.user = user;
+    next();
 }
 
 module.exports = validationMiddleware;
