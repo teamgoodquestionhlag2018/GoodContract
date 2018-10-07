@@ -15,6 +15,7 @@ class ProposalService {
     }
     Register(user) {
         userRepository.AddUser(user);
+        return user.id;
     }
     Login(id) {
         if (id == null) {
