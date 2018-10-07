@@ -6,6 +6,7 @@ class MockUserRepository {
 
         this.users.push({
             id: 'bf6bd829-2dff-44c9-802d-80b85dabc0c1',
+            token: uuid(),
             name: 'Donald Duck',
             wallet: '0x123',
             street: 'Webfoot Street 1313',
@@ -14,6 +15,7 @@ class MockUserRepository {
         });
         this.users.push({
             id: '9c098922-3e2c-4f08-8492-40284c26704b',
+            token: uuid(),
             name: 'Clark Kent',
             wallet: '0x456',
             street: 'Clinton Street 344',
@@ -27,6 +29,11 @@ class MockUserRepository {
     }
     GetUserById(id) {
         return GetUserById(id, this.users);
+    }
+    GetUserByToken(token) {
+        return this.users.find((element, index, array) => {
+            return element.token === token;
+        });
     }
     AddUser(user) {
         user.id = GetUniqueId(this.users);
