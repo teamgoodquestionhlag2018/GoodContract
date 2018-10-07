@@ -21,8 +21,7 @@ var authenticationRoutes = require('./routes/AuthenticationController');
 var validationMiddleware = require('./middleware/ValidationMiddleware');
 
 app.use('/', indexRouter);
-app.use('/proposals', proposalsRoutes);
-//app.use('/proposals', validationMiddleware, proposalsRoutes);
+app.use('/proposals', validationMiddleware, proposalsRoutes);
 app.use('/authentication', authenticationRoutes);
 
 module.exports = app;
