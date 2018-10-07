@@ -16,7 +16,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var proposalsRoutes = require('./routes/ProposalsController');
-var userRoutes = require('./routes/UsersController');
 var authenticationRoutes = require('./routes/AuthenticationController');
 
 var validationMiddleware = require('./middleware/ValidationMiddleware');
@@ -24,7 +23,6 @@ var validationMiddleware = require('./middleware/ValidationMiddleware');
 app.use('/', indexRouter);
 app.use('/proposals', proposalsRoutes);
 //app.use('/proposals', validationMiddleware, proposalsRoutes);
-//app.use('/users', validationMiddleware, userRoutes);
 app.use('/authentication', authenticationRoutes);
 
 module.exports = app;
