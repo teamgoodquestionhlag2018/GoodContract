@@ -59,14 +59,9 @@ class MockProposalRepository {
     }
     GetProposalByMilestoneId(milestoneId) {
         return this.proposals.find((element, index, array) => {
-            var milestone = element.milestones.find((milestone, index, array) => {
-                console.log(milestone.id);
-                console.log(milestoneId);
-                
+            var milestone = element.milestones.find((milestone, index, array) => {              
                 return milestone.id == milestoneId;
             });
-
-            console.log(milestone);
 
             return milestone != undefined;
         });

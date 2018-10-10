@@ -8,9 +8,6 @@ class ProposalService {
 
     GetUserById(id) {
         var data = userRepository.GetUserById(id);
-
-        console.log(data);
-
         return GetUserView(data);
     }
     Register(user) {

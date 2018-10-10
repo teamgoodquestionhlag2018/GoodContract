@@ -13,8 +13,6 @@ class MilestoneService {
     SignMilestone(milestoneId, userId) {
         var proposal = proposalRepository.GetProposalByMilestoneId(milestoneId);
 
-        console.log(proposal);
-
         if (proposal == undefined) {
             throw {
                 code: 404,
@@ -22,13 +20,8 @@ class MilestoneService {
             };
         }
 
-        console.log(proposal);
-
         var milestone = GetMilestone(proposal.milestones, milestoneId);
 
-        console.log(proposal.freelancer);
-        console.log(proposal.client);
-        console.log(userId);
         if (proposal.freelancer == userId) {
             milestone.freelancer.signed = true;
         }
@@ -41,8 +34,6 @@ class MilestoneService {
                 message: "You are not a part of this proposal"
             };
         }
-
-
     }
 }
 
