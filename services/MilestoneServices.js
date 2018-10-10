@@ -1,4 +1,5 @@
 var proposalRepository = require('../data/mocks/MockProposalRepository');
+var errors = require('../errors/Errors');
 
 class MilestoneService {
     constructor () {
@@ -14,10 +15,7 @@ class MilestoneService {
         var proposal = proposalRepository.GetProposalByMilestoneId(milestoneId);
 
         if (proposal == undefined) {
-            throw {
-                code: 404,
-                message: "This milestone does not exist"
-            };
+            throw new errors.NotFoundError("This milestone does not exist");
         }
 
         var milestone = GetMilestone(proposal.milestones, milestoneId);
@@ -29,10 +27,7 @@ class MilestoneService {
             milestone.client.signed = true;
         }
         else {
-            throw {
-                code: 403,
-                message: "You are not a part of this proposal"
-            };
+            throw new errors.ForbiddenError("You cannot sign this proposal");
         }
     }
 }

@@ -1,14 +1,12 @@
 var userService = require('../services/UserServices');
+var errors = require('../errors/Errors');
 
 var validationMiddleware = function(req, res, next) {
     var token = req.headers.token;
 
     if (token === null
         || token === undefined) {
-        throw {
-            code: 401,
-            message: "Token cannot be null"
-        };
+        throw new errors.UnauthorizedError("Token cannot be null");
     }
 
     var user = userService.ValidateUser(token);

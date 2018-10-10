@@ -1,5 +1,6 @@
 var userRepository = require('../data/mocks/MockUserRepository');
 var uuid = require('uuid/v4');
+var errors = require('../errors/Errors');
 
 class ProposalService {
     constructor() {
@@ -16,19 +17,13 @@ class ProposalService {
     }
     Login(id) {
         if (id == null) {
-            throw {
-                code: 401,
-                message: "Invalid id"
-            };
+            throw new errors.UnauthorizedError("Invalid id");
         }
 
         var data = userRepository.GetUserById(id);
 
         if (data === undefined) {
-            throw {
-                code: 401,
-                message: "Invalid id"
-            };
+            throw new errors.UnauthorizedError("Invalid id");
         }
 
         data.token = uuid();
@@ -37,11 +32,9 @@ class ProposalService {
     ValidateUser(token) {
         var data = userRepository.GetUserByToken(token);
 
-        if (data === undefined) {
-            throw {
-                code: 401,
-                message: "Invalid token"
-            };
+        if (data === undefined
+            || data === null) {
+            throw new errors.UnauthorizedError("Invalid token");
         }
 
         return GetUserView(data);

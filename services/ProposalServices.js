@@ -1,5 +1,6 @@
 var proposalRepository = require('../data/mocks/MockProposalRepository');
 var userService = require('./UserServices');
+var errors = require('../errors/Errors');
 
 class ProposalService {
     constructor() {
@@ -17,10 +18,7 @@ class ProposalService {
         var proposalData = proposalRepository.GetProposalById(id);
 
         if (proposalData == undefined) {
-            throw {
-                code: 404,
-                message: "Proposal was not found"
-            }
+            throw new errors.NotFoundError("Proposal was not found");
         }
 
         var proposal = GetProposalUsers(proposalData);
